@@ -10,7 +10,7 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity() {
 
     var count = 0
-    val countArray: Array<String> = arrayOf("apple", "dog", "cat", "banana")
+    val words: Array<String> = arrayOf("apple", "dog", "cat", "banana")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,10 +63,10 @@ class MainActivity : AppCompatActivity() {
 
     fun displayWord(wordText: TextView) {
         when (count) {
-            1 -> wordText.text = countArray[0]
-            5 -> wordText.text = countArray[1]
-            10 -> wordText.text = countArray[2]
-            30 -> wordText.text = countArray[3]
+            1 -> wordText.text = words[0]
+            5 -> wordText.text = words[1]
+            10 -> wordText.text = words[2]
+            30 -> wordText.text = words[3]
             else -> wordText.setText(R.string.word_text)
         }
     }
