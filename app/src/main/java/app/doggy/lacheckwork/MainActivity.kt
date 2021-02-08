@@ -3,18 +3,18 @@ package app.doggy.lacheckwork
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
+    var count = 0
     val countArray: Array<String> = arrayOf("apple", "dog", "cat", "banana")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        var count = 0
 
         val plusButton = findViewById<Button>(R.id.plusButton)
         val minusButton = findViewById<Button>(R.id.minusButton)
@@ -23,65 +23,51 @@ class MainActivity : AppCompatActivity() {
         val countText = findViewById<TextView>(R.id.countText)
         val wordText = findViewById<TextView>(R.id.wordText)
 
-        plusButton.setOnClickListener {
-
-            count += 1
-
-            countText.text = count.toString()
-
-            changeTextColor(count, countText)
-
-            displayWord(count, wordText)
-
-        }
-
-        minusButton.setOnClickListener {
-
-            count -= 1
-
-            countText.text = count.toString()
-
-            changeTextColor(count, countText)
-
-            displayWord(count, wordText)
-
-        }
-
-        clearButton.setOnClickListener {
-
-            count = 0
-
-            countText.text = count.toString()
-
-            changeTextColor(count, countText)
-
-            displayWord(count, wordText)
-
-        }
+        plusButton.setOnClickListener(CountListener(countText, wordText))
+        minusButton.setOnClickListener(CountListener(countText, wordText))
+        clearButton.setOnClickListener(CountListener(countText, wordText))
 
     }
 
-    fun changeTextColor(count: Int, textView: TextView) {
+    private inner class CountListener(val countText: TextView, val wordText: TextView): View.OnClickListener {
+        override fun onClick(view: View) {
+
+            when(view.id) {
+                R.id.plusButton -> count += 1
+                R.id.minusButton -> count -= 1
+                R.id.clearButton -> count = 0
+            }
+
+            countText.text = count.toString()
+
+            changeTextColor(countText)
+
+            displayWord(wordText)
+
+        }
+    }
+
+    fun changeTextColor(countText: TextView) {
         if (count == 0) {
-            textView.setTextColor(Color.BLACK)
+            countText.setTextColor(Color.BLACK)
         } else if (count%5 == 0 && count%3 == 0) {
-            textView.setTextColor(Color.RED)
+            countText.setTextColor(Color.RED)
         } else if (count%5 == 0) {
-            textView.setTextColor(Color.BLUE)
+            countText.setTextColor(Color.BLUE)
         } else if (count%3 == 0) {
-            textView.setTextColor(Color.GREEN)
+            countText.setTextColor(Color.GREEN)
         } else {
-            textView.setTextColor(Color.BLACK)
+            countText.setTextColor(Color.BLACK)
         }
     }
 
-    fun displayWord(count: Int, textView: TextView) {
+    fun displayWord(wordText: TextView) {
         when (count) {
-            0 -> textView.text = countArray[0]
-            5 -> textView.text = countArray[1]
-            10 -> textView.text = countArray[2]
-            30 -> textView.text = countArray[3]
-            else -> textView.setText(R.string.word_text)
+            1 -> wordText.text = countArray[0]
+            5 -> wordText.text = countArray[1]
+            10 -> wordText.text = countArray[2]
+            30 -> wordText.text = countArray[3]
+            else -> wordText.setText(R.string.word_text)
         }
     }
 }
