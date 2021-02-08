@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LACheckWork</string>
+    <string name="word_text">該当する言葉はありません。</string>
 </resources>

@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         val clearButton = findViewById<Button>(R.id.clearButton)
 
         val countText = findViewById<TextView>(R.id.countText)
+        val wordText = findViewById<TextView>(R.id.wordText)
 
         plusButton.setOnClickListener {
 
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
             countText.text = count.toString()
 
             changeTextColor(count, countText)
+
+            displayWord(count, wordText)
 
         }
 
@@ -40,6 +43,8 @@ class MainActivity : AppCompatActivity() {
 
             changeTextColor(count, countText)
 
+            displayWord(count, wordText)
+
         }
 
         clearButton.setOnClickListener {
@@ -49,6 +54,8 @@ class MainActivity : AppCompatActivity() {
             countText.text = count.toString()
 
             changeTextColor(count, countText)
+
+            displayWord(count, wordText)
 
         }
 
@@ -69,16 +76,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun displayWord(count: Int, textView: TextView) {
-        if (count == 0) {
-            textView.setTextColor(Color.BLACK)
-        } else if (count%5 == 0 && count%3 == 0) {
-            textView.setTextColor(Color.RED)
-        } else if (count%5 == 0) {
-            textView.setTextColor(Color.BLUE)
-        } else if (count%3 == 0) {
-            textView.setTextColor(Color.GREEN)
-        } else {
-            textView.setTextColor(Color.BLACK)
+        when (count) {
+            0 -> textView.text = countArray[0]
+            5 -> textView.text = countArray[1]
+            10 -> textView.text = countArray[2]
+            30 -> textView.text = countArray[3]
+            else -> textView.setText(R.string.word_text)
         }
     }
 }
